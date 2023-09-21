@@ -1,10 +1,15 @@
 # https://numpy.org/
-# pip install numpy
+#  abara o terminal e digite: pip install numpy
+# para instalar a biblioteca numpy
 
 # len() == Tamanho da lista
-from numpy import *
+# append() == adicionar novo valor a lista
+# remove() == remover valor da lista
+# pop() == remover pelo índice
 
-nomes = array(["João", "Maria", "Ana"])
+import numpy as np
+
+nomes = np.array(["João", "Maria", "Ana"])
 print(nomes)
 
 copia = nomes.copy()
