@@ -37,7 +37,7 @@ class FilaEncadeada:
             inicioFila = 0  # atualiza o onicio da fila
             finalFila = 0  # atualiza o final da fila
         elif (finalFila+1) % maxFila == inicioFila:  # fila cheia
-            return -1  # retorna -1 se a fila estiver cheia
+            return (30*"-") + "\n Filha Cheia \n " + (30*"-")  # retorna -1 se a fila estiver cheia
         else:
             finalFila = (finalFila+1) % maxFila  # atualiza o onicio da fila
             fila[finalFila] = novoNo  # Insere o nó
@@ -60,47 +60,63 @@ class FilaEncadeada:
         global finalFila
         global fila
         if inicioFila == None:  # Fila vazia
-            return None  # erro fila vazia
+            return (30*"-") + "\n Fila Vazia \n " + (30*"-") # erro fila vazia
         k = fila[inicioFila]
         if finalFila == inicioFila:
             inicioFila = None  # Fila vazia após remoção
         else:
             inicioFila = (inicioFila+1) % maxFila  # remove o nó
         return k  # retorna k = o nó consumido
+    
 
 
 # testes
-e0 = No(0, 'Joao')
-fila = FilaEncadeada(e0)
-fila.print()
+# e0 = No(0, 'Joao')
+# fila = FilaEncadeada(e0)
+# fila.print()
 
-e1 = No(1, 'Maria')
-fila.insere(e1)
-fila.print()
+# e1 = No(1, 'Maria')
+# fila.insere(e1)
+# fila.print()
 
-e2 = No(-1, 'Ana')
-fila.insere(e2)
-fila.print()
+# e2 = No(-1, 'Ana')
+# fila.insere(e2)
+# fila.print()
 
-e3 = No(2, 'Arthur')
-fila.insere(e3)
-fila.print()
-k = fila.remove()
+# e3 = No(2, 'Arthur')
+# fila.insere(e3)
+# fila.print()
+# k = fila.remove()
 
-print("No removido: " + k[0].valor)
-print("Inicio da fila: " + k[1].valor)
-print("final da fila: " + k[2].valor)
-fila.print()
-print(30*"-")
+# print("No removido: " + k[0].valor)
+# print("Inicio da fila: " + k[1].valor)
+# print("final da fila: " + k[2].valor)
+# fila.print()
+# print(30*"-")
+
+# while k[1] != None:
+#     k = fila.remove()
+#     if k[1] == None:
+#         print("Fila Vazia")
+#     else:
+#         print("No removido: " + k[0].valor)
+#         print("Inicio da fila: " + k[1].valor)
+#         print("final da fila: " + k[2].valor)
+#         fila.print()
+#         print(30*"-")
+
+maxFila=10
+fila=[None]*maxFila
+inicioFila=None
+finalFila=None
+
+print(fila)
+for i in range(10):
+    FilaEncadeada.insereFila(i)
+    print(fila)
+print(FilaEncadeada.insereFila(11))
+for i in range(10):
+    print(FilaEncadeada.removeFila())
+print(FilaEncadeada.removeFila())
 
 
-while k[1] != None:
-    k = fila.remove()
-    if k[1] == None:
-        print("Fila Vazia")
-    else:
-        print("No removido: " + k[0].valor)
-        print("Inicio da fila: " + k[1].valor)
-        print("final da fila: " + k[2].valor)
-        fila.print()
-        print(30*"-")
