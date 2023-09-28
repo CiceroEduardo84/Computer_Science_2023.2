@@ -1,3 +1,4 @@
+# -----FIFO-----
 # Nó
 class No:
     def __init__(self, chave, valor):
