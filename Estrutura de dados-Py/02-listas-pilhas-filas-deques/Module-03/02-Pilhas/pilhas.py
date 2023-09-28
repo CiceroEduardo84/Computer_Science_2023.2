@@ -14,8 +14,7 @@ class PilhaEncadeada:
             pilha[0] = novoNo  # insere o nó
             topoPilha = 0  # atualiza o topo da pilha
         elif (topoPilha == maxPilha-1):  # pilha cheia
-            # -1 → erro de pilha cheia
-            return (30*"-") + "\n Pilha cheia\n " + (30*"-")
+            return (30*"-") + "\n Pilha cheia\n " + (30*"-")# -1 → erro de pilha cheia
         else:
             topoPilha = topoPilha+1  # atualiza o topo da pilha
             pilha[topoPilha] = novoNo  # insere o nó
