@@ -1,4 +1,4 @@
-# -----FIFO-----
+# FIFO: First In First Out
 # Nó
 class No:
     def __init__(self, chave, valor):
