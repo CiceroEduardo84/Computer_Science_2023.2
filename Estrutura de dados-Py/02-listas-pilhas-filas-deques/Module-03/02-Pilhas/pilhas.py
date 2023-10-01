@@ -1,4 +1,4 @@
-#LIFO: Last In First Out
+# LIFO: Last In First Out
 class PilhaEncadeada:
     def __init__(self, topo=None):
         self.topo = topo

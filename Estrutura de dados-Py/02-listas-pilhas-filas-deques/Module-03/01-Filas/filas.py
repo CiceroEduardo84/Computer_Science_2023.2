@@ -38,7 +38,8 @@ class FilaEncadeada:
             inicioFila = 0  # atualiza o onicio da fila
             finalFila = 0  # atualiza o final da fila
         elif (finalFila+1) % maxFila == inicioFila:  # fila cheia
-            return (30*"-") + "\n Filha Cheia \n " + (30*"-")  # retorna -1 se a fila estiver cheia
+            # retorna -1 se a fila estiver cheia
+            return (30*"-") + "\n Filha Cheia \n " + (30*"-")
         else:
             finalFila = (finalFila+1) % maxFila  # atualiza o onicio da fila
             fila[finalFila] = novoNo  # Insere o nó
@@ -61,14 +62,13 @@ class FilaEncadeada:
         global finalFila
         global fila
         if inicioFila == None:  # Fila vazia
-            return (30*"-") + "\n Fila Vazia \n " + (30*"-") # erro fila vazia
+            return (30*"-") + "\n Fila Vazia \n " + (30*"-")  # erro fila vazia
         k = fila[inicioFila]
         if finalFila == inicioFila:
             inicioFila = None  # Fila vazia após remoção
         else:
             inicioFila = (inicioFila+1) % maxFila  # remove o nó
         return k  # retorna k = o nó consumido
-    
 
 
 # testes
@@ -106,10 +106,10 @@ class FilaEncadeada:
 #         fila.print()
 #         print(30*"-")
 
-maxFila=10
-fila=[None]*maxFila
-inicioFila=None
-finalFila=None
+maxFila = 10
+fila = [None]*maxFila
+inicioFila = None
+finalFila = None
 
 print(fila)
 for i in range(10):
@@ -119,5 +119,3 @@ print(FilaEncadeada.insereFila(11))
 for i in range(10):
     print(FilaEncadeada.removeFila())
 print(FilaEncadeada.removeFila())
-
-
