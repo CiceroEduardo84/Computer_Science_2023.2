@@ -60,16 +60,12 @@ def ValorNo(no):
         atual = atual.esquerda
     return atual
 
-
 cont = [10]
-
-
 def ImprimeArvoreRecurs(raiz, nivel):
     global cont
-
+    
     if raiz is None:
         return
-
     nivel += 1
     ImprimeArvoreRecurs(raiz.direita, nivel)
     for i in range(cont[0], nivel):
@@ -84,8 +80,6 @@ def ImprimeArvore(raiz):
     ImprimeArvoreRecurs(raiz, 0)
 
 # Percurso Prá-Ordem
-
-
 def VisitaPreOrdem(raiz):
     if raiz:
         print(raiz.chave)
@@ -93,8 +87,6 @@ def VisitaPreOrdem(raiz):
         VisitaPreOrdem(raiz.direita)
 
 # Percurso em Ordem(In-Order)
-
-
 def VisitaInOrder(raiz):
   if raiz:
     VisitaInOrder(raiz.esquerda)
@@ -102,8 +94,6 @@ def VisitaInOrder(raiz):
     VisitaInOrder(raiz.direita)
 
 # Percurso Pós-Ordem
-
-
 def VisitaPosOrdem(raiz):
   if raiz:
     VisitaPosOrdem(raiz.esquerda)
