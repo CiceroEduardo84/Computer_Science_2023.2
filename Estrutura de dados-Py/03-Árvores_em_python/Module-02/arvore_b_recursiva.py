@@ -59,44 +59,108 @@ def ValorNo(no):
     return atual
 
 cont = [10]
-def ImprimeArvoreRecurs(raiz, nivel):
+# def ImprimeArvoreRecurs(raiz, nivel):
     
-    if (raiz == None):
-        nivel = cont[0]
-        return nivel
+#     if (raiz == None):
+#         nivel = cont[0]
+#         return nivel
+
+#     # Imprime Filhos à Direita
+#     print(ImprimeArvoreRecurs(raiz.direita, nivel))
+
+#     for i in range(cont[0], nivel):
+#         print(end=" ")
+#         print(f"{raiz.chave}<")
+
+#     # Imprime Filhos à Esquerda
+#     ImprimeArvoreRecurs(raiz.esquerda, nivel)
+    
+# def ImprimeArvore(raiz):
+#     ImprimeArvoreRecurs(raiz, 0)
+    
+# # def em_ordem(raiz):
+# #     if not raiz:
+# #         return
+# #     em_ordem(raiz.esquerda)
+# #     print(raiz.chave),
+# #     em_ordem(raiz.direita)
+    
+#     if __name__ == '__main__':
+#         raiz = NoArvore(40)
+    
+#     # Inserir
+#     for chave in [20, 60, 50, 70, 10, 30]:
+#         nodo = NoArvore(chave)
+#         InserirBST(raiz, nodo)
+#     # Imprime o caminhamento em ordem da árvore.
+#     # em_ordem(raiz)
+    
+#     print(30*"-"+"Buscar"+30*"-")
+    
+#     # Buscar
+#     for chave in [-50, 10, 30, 70, 100]:
+#         resultado = BuscaBST(raiz, chave)
+#         if resultado:
+#             print("Busca pela chave {}: Sucesso!".format(chave))
+#         else:
+#             print("Busca pela chave {}: Falha!".format(chave))
+    
+#     print(30*"-"+"delete 30, buscar"+30*"-")
+
+#     # deletar e buscar
+#     for chave in [-50, 10, 30, 70, 100]:
+#         DeleteBST(raiz, 30)
+#         resultado = BuscaBST(raiz, chave)
+#         if resultado:
+#             print("Busca pela chave {}: Sucesso!".format(chave))
+#         else:
+#             print("Busca pela chave {}: Falha!".format(chave))
+ 
+   
+def ImprimeArvoreRecurs(raiz, nivel):
+    global cont  # Adiciona cont como uma variável global
+
+    if raiz is None:
+        return
+
+    # Incrementa o nível
+    nivel += 1
 
     # Imprime Filhos à Direita
-    print(ImprimeArvoreRecurs(raiz.direita,nivel))
+    ImprimeArvoreRecurs(raiz.direita, nivel)
 
+    # Imprime os espaços
     for i in range(cont[0], nivel):
-        print(end=" ")
-        print(f"{raiz.chave}<")
+        print(" ", end=" ")
+
+    # Imprime o valor do nó
+    print(raiz.chave)
 
     # Imprime Filhos à Esquerda
     ImprimeArvoreRecurs(raiz.esquerda, nivel)
-    
+
+
 def ImprimeArvore(raiz):
+    global cont  # Adiciona cont como uma variável global
+    cont[0] = 0  # Reinicia o valor de cont
+
+    # Chama a função recursiva para imprimir a árvore
     ImprimeArvoreRecurs(raiz, 0)
-    
-# def em_ordem(raiz):
-#     if not raiz:
-#         return
-#     em_ordem(raiz.esquerda)
-#     print(raiz.chave),
-#     em_ordem(raiz.direita)
-    
+
+
 if __name__ == '__main__':
-    raiz = NoArvore(40)
-    
+    raiz = NoArvore(50)
+
     # Inserir
-    for chave in [20, 60, 50, 70, 10, 30]:
+    for chave in [20, 60,45, 50, 70, 10, 30]:
         nodo = NoArvore(chave)
         InserirBST(raiz, nodo)
-    # Imprime o caminhamento em ordem da árvore.
-    # em_ordem(raiz)
-    
-    print(30*"-"+"Buscar"+30*"-")
-    
+
+    print(30 * "-" + "Imprimir Árvore" + 30 * "-")
+    ImprimeArvore(raiz)
+
+    print(30 * "-" + "Buscar" + 30 * "-")
+
     # Buscar
     for chave in [-50, 10, 30, 70, 100]:
         resultado = BuscaBST(raiz, chave)
@@ -104,10 +168,10 @@ if __name__ == '__main__':
             print("Busca pela chave {}: Sucesso!".format(chave))
         else:
             print("Busca pela chave {}: Falha!".format(chave))
-    
-    print(30*"-"+"delete 30, buscar"+30*"-")
 
-    # deletar e buscar
+    print(30 * "-" + "Delete 30, Buscar" + 30 * "-")
+
+    # Deletar e buscar
     for chave in [-50, 10, 30, 70, 100]:
         DeleteBST(raiz, 30)
         resultado = BuscaBST(raiz, chave)
@@ -115,6 +179,6 @@ if __name__ == '__main__':
             print("Busca pela chave {}: Sucesso!".format(chave))
         else:
             print("Busca pela chave {}: Falha!".format(chave))
-            
+          
 ImprimeArvore(raiz)
 
