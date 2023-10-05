@@ -47,7 +47,7 @@ def DeleteBST(raiz, chave):
             temp = raiz.esquerda
             raiz = None
             return temp
-        temp = ValorNo(raiz.dirieta)
+        temp = ValorNo(raiz.direita)
         raiz.chave = temp.chave
         raiz.direita = DeleteBST(raiz.direita, temp.chave)
     return raiz
@@ -149,14 +149,17 @@ def ImprimeArvore(raiz):
 
 
 if __name__ == '__main__':
-    raiz = NoArvore(50)
+    raiz = NoArvore(30)
 
     # Inserir
-    for chave in [20, 60,45, 50, 70, 10, 30]:
+    for chave in [10, 20, 30, 35, 32, 33, 45]:
+        # for chave in [20, 60,45, 50, 70, 10, 30]:
         nodo = NoArvore(chave)
         InserirBST(raiz, nodo)
 
     print(30 * "-" + "Imprimir Árvore" + 30 * "-")
+    
+    # imprimir
     ImprimeArvore(raiz)
 
     print(30 * "-" + "Buscar" + 30 * "-")
@@ -180,5 +183,4 @@ if __name__ == '__main__':
         else:
             print("Busca pela chave {}: Falha!".format(chave))
           
-ImprimeArvore(raiz)
 
