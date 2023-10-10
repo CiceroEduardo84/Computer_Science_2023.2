@@ -96,9 +96,25 @@ class No:
                     return 0
                 else:
                     return self.esquerda.buscar(data)
+    
+    def delete(self, data):
+        if self.key is None:
+            return self.key
+        elif data > self.key:
+            return self.direita.delete(data)
+        elif data < self.key:
+            return self.esquerda.delete(data)
+        else:
+            if self.esquerda.key is None: 
+                self.rotacaoEsquerda()
+
+            elif self.direita.key is None:
+                self.rotacaoDireita()
+
+            else:
+                print("Não entrou")
 
     # In-Order
-
     def imprimirArvore(self, indent=0):
         if self.esquerda:
             self.esquerda.imprimirArvore(indent + 2)
@@ -111,7 +127,7 @@ if __name__ == "__main__":
     print(30 * "-" + "Inserir" + 30 * "-")
     raiz = No(None)
 
-    for data in [10, 5, 3]:
+    for data in [10, 5,4, 3,2,1,0]:
         raiz.insere(data)
     # Print Tree
     raiz.imprimirArvore()
@@ -131,4 +147,14 @@ if __name__ == "__main__":
             print("{} encontrado".format(chave))
     
     print(30 * "-" + "Remover" + 30 * "-")
-    
+    raiz.delete(1)
+    raiz.imprimirArvore()
+    # for chave in [5, 10, 30, 70, 100]:
+    #     # Search value
+    #     result = raiz.buscar(chave)
+    #     if result == -1:
+    #         print("Arvore não é AVL, está desbalanceada")
+    #     elif result == 0:
+    #         print("{} não encontrado".format(chave))
+    #     elif result == 1:
+    #         print("{} encontrado".format(chave))
