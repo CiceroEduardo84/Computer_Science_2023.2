@@ -96,23 +96,45 @@ class No:
                     return 0
                 else:
                     return self.esquerda.buscar(data)
-    
+
+    # Método para deletar um nó com valor 'data'
+
     def delete(self, data):
+        # Verifica se o nó atual está vazio
         if self.key is None:
-            return self.key
+            print("Valor não encontrado!")
+            return None
+
+        # Se 'data' é menor que a chave atual, tenta deletar na subárvore esquerda
+        if data < self.key:
+            if self.esquerda:
+                self.esquerda = self.esquerda.delete(data)
+        # Se 'data' é maior que a chave atual, tenta deletar na subárvore direita
         elif data > self.key:
-            return self.direita.delete(data)
-        elif data < self.key:
-            return self.esquerda.delete(data)
+            if self.direita:
+                self.direita = self.direita.delete(data)
         else:
-            if self.esquerda.key is None: 
-                self.rotacaoEsquerda()
-
-            elif self.direita.key is None:
-                self.rotacaoDireita()
-
+            # Nó a ser deletado encontrado
+            if self.esquerda is None:
+                return self.direita
+            elif self.direita is None:
+                return self.esquerda
             else:
-                print("Não entrou")
+                # Nó tem ambos os filhos
+                # Encontra o nó mínimo na subárvore direita (sucessor)
+                min_right_subtree = self.direita.find_min()
+                self.key = min_right_subtree.key
+                self.direita = self.direita.delete(min_right_subtree.key)
+        # Reequilibra a árvore após a exclusão
+        self.executabalanco()
+        return self
+
+    # Método para encontrar o nó com a menor chave na subárvore atual
+    def find_min(self):
+        current = self
+        while current.esquerda:
+            current = current.esquerda
+        return current
 
     # In-Order
     def imprimirArvore(self, indent=0):
@@ -127,10 +149,8 @@ if __name__ == "__main__":
     print(30 * "-" + "Inserir" + 30 * "-")
     raiz = No(None)
 
-    for data in [10, 5,4, 3,2,1,0]:
+    for data in [10, 5, 4, 3, 2, 1, 0]:
         raiz.insere(data)
-    # Print Tree
-    raiz.imprimirArvore()
 
     print(30 * "-" + "Buscar" + 30 * "-")
     # -1 = Tree not AVl
@@ -145,16 +165,19 @@ if __name__ == "__main__":
             print("{} não encontrado".format(chave))
         elif result == 1:
             print("{} encontrado".format(chave))
-    
+
     print(30 * "-" + "Remover" + 30 * "-")
-    raiz.delete(1)
+    raiz.delete(3)
+    for chave in [5, 10, 30, 70, 100]:
+        # Search value
+        result = raiz.buscar(chave)
+        if result == -1:
+            print("Arvore não é AVL, está desbalanceada")
+        elif result == 0:
+            print("{} não encontrado".format(chave))
+        elif result == 1:
+            print("{} encontrado".format(chave))
+
+    print(30 * "-" + "Imprimi" + 30 * "-")
+    # Print Tree
     raiz.imprimirArvore()
-    # for chave in [5, 10, 30, 70, 100]:
-    #     # Search value
-    #     result = raiz.buscar(chave)
-    #     if result == -1:
-    #         print("Arvore não é AVL, está desbalanceada")
-    #     elif result == 0:
-    #         print("{} não encontrado".format(chave))
-    #     elif result == 1:
-    #         print("{} encontrado".format(chave))
