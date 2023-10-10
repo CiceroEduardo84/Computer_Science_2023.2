@@ -151,6 +151,7 @@ if __name__ == "__main__":
 
     for data in [10, 5, 4, 3, 2, 1, 0]:
         raiz.insere(data)
+    print("Inserção feita com sucesso!")
 
     print(30 * "-" + "Buscar" + 30 * "-")
     # -1 = Tree not AVl
@@ -168,7 +169,7 @@ if __name__ == "__main__":
 
     print(30 * "-" + "Remover" + 30 * "-")
     raiz.delete(3)
-    for chave in [5, 10, 30, 70, 100]:
+    for chave in [3, 10, 30, 70, 100]:
         # Search value
         result = raiz.buscar(chave)
         if result == -1:
