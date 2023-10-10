@@ -5,20 +5,20 @@ class No:
         self.direita = None
 
     def setFilhos(self, esquerda, direita):
-        self.esquerda = direita
-        self.direita = esquerda
+        self.esquerda = esquerda
+        self.direita = direita
 
     def rotacaoEsquerda(self):
-        self.key, self.direita.key = self.key, self.direita.key
-        esquerda = self.esquerda
-        self.setFilhos(self.direita.direita, self.direita)
-        self.setFilhos(self.esquerda.esquerda, esquerda)
+        self.key, self.direita.key = self.direita.key, self.key
+        old_esquerda = self.esquerda
+        self.setFilhos(self.direita, self.direita.direita)
+        self.esquerda.setFilhos(old_esquerda, self.esquerda.esquerda)
 
     def rotacaoDireita(self):
-        self.key, self.esquerda.key = self.key, self.esquerda.key
-        direita = self.direita
+        self.key, self.esquerda.key = self.esquerda.key, self.key
+        old_direita = self.direita
         self.setFilhos(self.esquerda.esquerda, self.esquerda)
-        self.setFilhos(self.direita.direita, direita)
+        self.direita.setFilhos(self.direita.direita, old_direita)
 
     def rotacaoEsquerdaDireita(self):
         self.esquerda.rotacaoEsquerda()
@@ -79,7 +79,26 @@ class No:
                 self.direita.insere(data)
         self.executabalanco()
 
+    def buscar(self, data):
+        bal = self.balanco()
+        if bal > 1 or bal < -1:
+            return -1
+        else:
+            if data == self.key:
+                return 1
+            elif data > self.key:
+                if self.direita is None:
+                    return 0
+                else:
+                    return self.direita.buscar(data)
+            elif data < self.key:
+                if self.esquerda is None:
+                    return 0
+                else:
+                    return self.esquerda.buscar(data)
+
     # In-Order
+
     def imprimirArvore(self, indent=0):
         if self.esquerda:
             self.esquerda.imprimirArvore(indent + 2)
@@ -89,8 +108,27 @@ class No:
 
 
 if __name__ == "__main__":
+    print(30 * "-" + "Inserir" + 30 * "-")
     raiz = No(None)
+
     for data in [10, 5, 3]:
         raiz.insere(data)
-
+    # Print Tree
     raiz.imprimirArvore()
+
+    print(30 * "-" + "Buscar" + 30 * "-")
+    # -1 = Tree not AVl
+    # 0 = value notfound
+    # 1 = value found
+    for chave in [-50, 10, 30, 70, 100]:
+        # Search value
+        result = raiz.buscar(chave)
+        if result == -1:
+            print("Arvore não é AVL, está desbalanceada")
+        elif result == 0:
+            print("{} não encontrado".format(chave))
+        elif result == 1:
+            print("{} encontrado".format(chave))
+    
+    print(30 * "-" + "Remover" + 30 * "-")
+    
