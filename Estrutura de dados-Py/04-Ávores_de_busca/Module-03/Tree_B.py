@@ -1,32 +1,32 @@
-# Criação da arvore B
-class BTree:
-    # Definindo minha folhas, chaves/nós e filhos
+class BTreeNode:
     def __init__(self, folha=True):
         self.folha = folha
         self.chaves = []
         self.filhos = []
 
-    # Busca em arvores B
+
+class BTree:
+    def __init__(self):
+        self.root = BTreeNode()
+
     def search(self, value, x=None):
         if x is None:
-            x = self
+            x = self.root
 
-        i = 0  # Contador
-        # Irá percorer os nós da minha árvore
+        i = 0
         while i < len(x.chaves) and value > x.chaves[i]:
             i += 1
 
-        if i < len(x.chaves) and value == x.chaves[i]:  # encontrado o valor
+        if i < len(x.chaves) and value == x.chaves[i]:
             return x, i
-        if x.folha:  # Não encontrado o valor
+        if x.folha:
             return None
-        return self.buscar(value, x.filhos[i])  # Procura nos nós filhos
+        return self.search(value, x.filhos[i])
 
-    # Dividir pagina
     def split_children(self, x, i):
         t = 1
         y = x.filhos[i]
-        z = BTree(folha=y.folha)
+        z = BTreeNode(folha=y.folha)
         x.filhos.insert(i + 1, z)
         x.chaves.insert(i, y.chaves[t - 1])
         z.chaves = y.chaves[t:]
@@ -36,14 +36,12 @@ class BTree:
             z.filhos = y.filhos[t:]
             y.filhos = y.filhos[:t]
 
-    # Inserção em arvores B, com a ordem
     def insert(self, value, order):
-        root = self
+        root = self.root
 
-        # Checar se minha lista de chaves respeita a propriedade ordem
-        if len(self.chaves) == order:
-            temp = BTree(folha=False)
-            self = temp
+        if len(root.chaves) == order:
+            temp = BTreeNode(folha=False)
+            self.root = temp
             temp.filhos.append(root)
             self.split_children(temp, 0)
             self.insert_non_full(temp, value, order)
@@ -53,11 +51,11 @@ class BTree:
 
     def insert_non_full(self, k, value, order):
         i = len(k.chaves) - 1
-        if k.folha:  # Inserir caso seja folha
+        if k.folha:
             while i >= 0 and value < k.chaves[i]:
                 i -= 1
             k.chaves.insert(i + 1, value)
-        else:  # senão ele quebra minha arvore e encaixa o novo valor
+        else:
             while i >= 0 and value < k.chaves[i]:
                 i -= 1
             i += 1
@@ -67,28 +65,42 @@ class BTree:
                     i += 1
             self.insert_non_full(k.filhos[i], value, order)
 
-    # Remover elemento do meu nó
     def remove(self, value, order, x=None):
         if x is None:
-            x = self
+            x = self.root
 
-        i = 0  # Contador
-        # Irá percorer os nós da minha árvore
+        i = 0
         while i < len(x.chaves) and value > x.chaves[i]:
             i += 1
 
-        if i < len(x.chaves) and value == x.chaves[i]:  # encontrado o valor
-            return x, i
-        if x.folha:  # Não encontrado o valor
+        if i < len(x.chaves) and value == x.chaves[i]:
+            return self.delete_non_full(x, value, order)
+
+        if x.folha:
             return None
-        return self.remove(value, x.filhos[i])  # Procura nos nós filhos
+        return self.remove(value, order, x.filhos[i])
+
+    def delete_non_full(self, k, value, order):
+        i = len(k.chaves) - 1
         
-        
+        k.chaves.remove(value)
+            
+        i += 1
+        if len(k.filhos[i].chaves) == order:
+            self.split_children(k, i)
+            if value > k.chaves[i]:
+                i += 1
+
+
 if __name__ == "__main__":
     btree = BTree()
     order = 2
-    keys = [10, 39, 45, 25, 15, 10]
+    keys = [3, 7, 1, 5, 8, 2, 6, 4]
+    
     for key in keys:
         btree.insert(key, order)
-
-    print(btree.search(80))
+    
+    btree.remove(3,order)
+    
+    for key in keys:
+        print(btree.search(key))
