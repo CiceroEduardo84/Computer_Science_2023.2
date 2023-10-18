@@ -75,21 +75,21 @@ class BTree:
 
         if i < len(x.chaves) and value == x.chaves[i]:
             return self.delete_non_full(x, value, order)
-
+        
         if x.folha:
             return None
         return self.remove(value, order, x.filhos[i])
 
     def delete_non_full(self, k, value, order):
-        i = len(k.chaves) - 1
-        
-        k.chaves.remove(value)
-            
-        i += 1
-        if len(k.filhos[i].chaves) == order:
-            self.split_children(k, i)
-            if value > k.chaves[i]:
-                i += 1
+        # i = len(k.chaves) - 1
+        if k.folha:
+            k.chaves.remove(value)
+        else:
+            i += 1
+            if len(k.filhos[i].chaves) == order:
+                self.split_children(k, i)
+                if value > k.chaves[i]:
+                    i += 1
 
 
 if __name__ == "__main__":
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     for key in keys:
         btree.insert(key, order)
     
-    btree.remove(3,order)
+    btree.remove(4,order)
     
     for key in keys:
         print(btree.search(key))
