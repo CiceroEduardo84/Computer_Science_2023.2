@@ -85,11 +85,21 @@ class BTree:
         if k.folha:
             k.chaves.remove(value)
         else:
-            i += 1
-            if len(k.filhos[i].chaves) == order:
-                self.split_children(k, i)
-                if value > k.chaves[i]:
-                    i += 1
+            self.greater_lessere_element(k, value, order, 0)
+    
+    def greater_lessere_element(self, k, value, order, i):
+        t = 1
+        y = k.filhos[i]
+        z = BTreeNode(folha=y.folha)
+        k.filhos.insert(i + 1, z)
+        k.chaves.insert(i, y.chaves[t - 1])
+        z.chaves = y.chaves[t:]
+        y.chaves = y.chaves[:t - 1]
+
+        if not y.folha:
+            z.filhos = y.filhos[t:]
+            y.filhos = y.filhos[:t]
+        self.delete_non_full(k, value, order)
 
 
 if __name__ == "__main__":
